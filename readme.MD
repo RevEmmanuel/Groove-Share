@@ -34,7 +34,7 @@ db.host=
 db.name=
 db.username=
 db.password=
-Jwt_Secret_Key=
+SECRET_KEY=
 ```
 
 ### Build and Run the Application
