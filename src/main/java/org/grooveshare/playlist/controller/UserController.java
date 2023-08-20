@@ -43,6 +43,16 @@ public class UserController {
         return new ResponseEntity<>(userService.login(loginRequest), HttpStatus.OK);
     }
 
+    @GetMapping("/secured")
+    public String secureLogin() {
+        return "<h1>Login secure!</h1>";
+    }
+
+    @GetMapping("/")
+    public String insecureLogin() {
+        return "<h1>Secure your login!</h1>";
+    }
+
     @Operation(summary = "Delete user account")
     @DeleteMapping("/delete-user")
     public ResponseEntity<String> deleteAccount(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {

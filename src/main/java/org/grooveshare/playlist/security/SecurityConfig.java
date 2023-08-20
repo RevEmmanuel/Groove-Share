@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,17 +23,19 @@ public class SecurityConfig {
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationFilter authenticationFilter;
-    private final String[] WHITE_LIST = {"/api/v1/auth/login", "/api/v1/auth/signup", "api/v1/link/get-original-url/**"};
+
+    private final String[] WHITE_LIST = {"/api/v1/auth/login", "/api/v1/auth/signup", "/api/v1/auth/"};
     private final String[] SWAGGER = {"/swagger-ui.html", "/swagger-ui/**", "v3/api-docs", "v3/api-docs/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity.csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
+//                .authenticationEntryPoint(authenticationEntryPoint) // this affects oauth2
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(WHITE_LIST).permitAll()
@@ -42,9 +45,11 @@ public class SecurityConfig {
                 .httpBasic();
 
         httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.oauth2Login(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(
