@@ -28,7 +28,7 @@ public class SpotifyService {
     private String clientSecret;
 
 
-    public Song findingSong(String songTitle) {
+    public void findingSong(String songTitle) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headersOne = new HttpHeaders();
         headersOne.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -65,7 +65,7 @@ public class SpotifyService {
         try {
             root = mapper.readTree(response.getBody());
         } catch (JsonProcessingException e) {
-            throw new PlaylistException("Unable to parse artistes");
+            throw new RuntimeException("Unable to parse artistes");
         }
         JsonNode tracks = root.path("tracks").path("items");
 
@@ -94,18 +94,6 @@ public class SpotifyService {
         String playBack = tracks.get(0).get("preview_url").asText();
 
 
-        return Song.builder()
-                .spotifyId(spotifyId)
-                .playBack(playBack)
-                .title(title)
-                .artiste(artiste)
-                .image(image)
-                .explicit(isExplicit)
-                .releaseDate(releaseDate)
-                .albumName(albumName)
-                .duration(duration)
-                .externalHref(externalHref)
-                .build();
     }
 
     private static String getArtists(JsonNode artistsNode) throws JsonProcessingException {
