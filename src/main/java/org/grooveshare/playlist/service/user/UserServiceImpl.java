@@ -1,4 +1,4 @@
-package org.grooveshare.playlist.service;
+package org.grooveshare.playlist.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

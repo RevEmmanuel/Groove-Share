@@ -11,7 +11,7 @@ import org.grooveshare.playlist.data.dto.response.FindUserResponse;
 import org.grooveshare.playlist.data.dto.response.LoginResponse;
 import org.grooveshare.playlist.data.models.UserEntity;
 import org.grooveshare.playlist.exceptions.PlaylistException;
-import org.grooveshare.playlist.service.UserService;
+import org.grooveshare.playlist.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

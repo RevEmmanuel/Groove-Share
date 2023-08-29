@@ -1,4 +1,4 @@
-package org.grooveshare.playlist.service;
+package org.grooveshare.playlist.service.user;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.grooveshare.playlist.data.dto.request.CreateUserRequest;
